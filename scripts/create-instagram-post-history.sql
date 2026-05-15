@@ -15,6 +15,10 @@ create table if not exists public.instagram_post_history (
 create index if not exists instagram_post_history_panorama_idx
   on public.instagram_post_history(panorama_id);
 
+-- Grant Data API access (no anon access -- admin-only table)
+grant select, insert, update, delete on public.instagram_post_history to authenticated;
+grant select, insert, update, delete on public.instagram_post_history to service_role;
+
 alter table public.instagram_post_history enable row level security;
 
 create policy "Allow authenticated admins to log posts"

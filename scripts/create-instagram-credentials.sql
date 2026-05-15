@@ -16,6 +16,10 @@ create index if not exists instagram_credentials_expires_idx
   on public.instagram_credentials (expires_at desc)
   where access_token is not null;
 
+-- Grant Data API access (no anon access -- admin-only table)
+grant select, insert, update, delete on public.instagram_credentials to authenticated;
+grant select, insert, update, delete on public.instagram_credentials to service_role;
+
 alter table public.instagram_credentials enable row level security;
 
 create policy "Admin read instagram credentials"

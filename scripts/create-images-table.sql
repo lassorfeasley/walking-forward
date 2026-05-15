@@ -23,6 +23,11 @@ CREATE INDEX IF NOT EXISTS idx_panorama_images_tags ON panorama_images USING GIN
 CREATE INDEX IF NOT EXISTS idx_panorama_images_original_url ON panorama_images(original_url);
 CREATE INDEX IF NOT EXISTS idx_panorama_images_processed_url ON panorama_images(processed_url);
 
+-- Grant Data API access
+GRANT SELECT ON public.panorama_images TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.panorama_images TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.panorama_images TO service_role;
+
 -- Enable Row Level Security
 ALTER TABLE panorama_images ENABLE ROW LEVEL SECURITY;
 
